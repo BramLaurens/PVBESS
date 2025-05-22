@@ -65,8 +65,8 @@ void loop() {
   }
   else if(totaalGebruiknetHuis > 1000 && accu > 30) {
     // Als de netbelasting meer dan 1000W is en de accu meer dan 30% vol is, ontlaad de accu
-    vermogen = totaalGebruiknetHuis;
-    actie = "Ontlaad";
+    vermogen = totaalGebruiknetHuis-1000;
+    actie = "ONTLAAD";
   }
 
   stuurData(vermogen, actie);
