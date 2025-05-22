@@ -61,7 +61,7 @@ void loop() {
     // Als er meer verbruik is dan zon, laad de accu
     vermogen = verbruik - zon;
     actie = "ONTLAAD";
-  } else if (verbruik < zon) {
+  } else if (verbruik < zon && accu < 50) {
     // Als er meer zon is dan verbruik, ontlaad de accu
     vermogen = zon - verbruik;
     actie = "LAAD";
