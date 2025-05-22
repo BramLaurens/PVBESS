@@ -40,7 +40,7 @@ void ontvangData();
 
 String inkomendeData = "";
 float zon = 0, verbruik = 0, accu = 0, prijs = 0;
-float toaalGebruiknetHuis = 0; // eigen netgebruik of teruglevering
+float totaalGebruiknetHuis = 0; // eigen netgebruik of teruglevering
 float netBelastingTotaal = 0;  // hele netbelasting van wijk
 int uur = 0, minuut = 0;
 bool nieuweDataBinnen = false;
@@ -57,12 +57,21 @@ void loop() {
   float vermogen = 0;
 //regeling hier---------------
 
- 
-
-//-------------------------------
-
+  //Acculaadlogica
+  if (verbruik < zon && accu < 55) {
+    // Als er meer zon is dan verbruik, laad de accu
+    vermogen = zon - verbruik;
+    actie = "LAAD";
+  }
+  else if(totaalGebruiknetHuis > 1000 && accu > 30) {
+    // Als de netbelasting meer dan 1000W is en de accu meer dan 30% vol is, ontlaad de accu
+    vermogen = totaalGebruiknetHuis;
+    actie = "Ontlaad";
+  }
 
   stuurData(vermogen, actie);
+//-------------------------------
+
 }
 
 void ontvangData() {
@@ -92,7 +101,7 @@ void ontvangData() {
           prijs = velden[3].toFloat();
           prijs = ((long)(prijs * 1000 + 0.5)) / 1000.0;
 
-          toaalGebruiknetHuis = velden[4].toFloat();
+          totaalGebruiknetHuis = velden[4].toFloat();
           uur = velden[5].toInt();
           minuut = velden[6].toInt();
           netBelastingTotaal = velden[7].toFloat();
