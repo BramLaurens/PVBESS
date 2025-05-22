@@ -57,7 +57,7 @@ void loop() {
   float vermogen = 0;
 //regeling hier---------------
 
-  if(verbruik > zon) {
+  if(verbruik > zon && accu > 30) {
     // Als er meer verbruik is dan zon, laad de accu
     vermogen = verbruik - zon;
     actie = "ONTLAAD";
