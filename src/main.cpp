@@ -70,6 +70,13 @@ void loop() {
     actie = "LAAD";
     stuurData(vermogen, actie);
   }
+
+  if(prijs > 0.40 && accu > 20) {
+    // Als de prijs hoog is en de accu meer dan 20% vol is, ontlaad de accu
+    vermogen = verbruik; // Stel een ontlaadvermogen in op basis van de accustatus
+    actie = "ONTLAAD";
+    stuurData(vermogen, actie);
+  }
 //-------------------------------
 
 }
