@@ -58,18 +58,18 @@ void loop() {
 //regeling hier---------------
 
   //Acculaadlogica
-  if (verbruik < zon && accu < 55) {
+  if (verbruik < zon && accu < 90) {
     // Als er meer zon is dan verbruik, laad de accu
     vermogen = zon - verbruik;
     actie = "LAAD";
-  }
-  else if(totaalGebruiknetHuis > 800 && accu > 30) {
-    // Als de netbelasting meer dan 800W is en de accu meer dan 30% vol is, ontlaad de accu
-    vermogen = totaalGebruiknetHuis-1000;
-    actie = "ONTLAAD";
+    stuurData(vermogen, actie);
   }
 
-  stuurData(vermogen, actie);
+  if(prijs < 0.20 && accu < 90) {
+    vermogen = 500; // Laad de accu met 500W als de prijs onder 0.20 €/kWh is
+    actie = "LAAD";
+    stuurData(vermogen, actie);
+  }
 //-------------------------------
 
 }
