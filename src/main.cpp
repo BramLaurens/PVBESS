@@ -57,26 +57,29 @@ void loop() {
   float vermogen = 0;
 //regeling hier---------------
 
-  //Acculaadlogica
+  
   if (verbruik < zon && accu < 90) {
     // Als er meer zon is dan verbruik, laad de accu
     vermogen = zon - verbruik;
     actie = "LAAD";
-    stuurData(vermogen, actie);
   }
-
-  if(prijs < 0.20 && accu < 90) {
-    vermogen = 500; // Laad de accu met 500W als de prijs onder 0.20 €/kWh is
+  else if(prijs < 0.20 && accu < 90) {
+    // Laad de accu met 500W als de prijs onder 0.20 €/kWh is
+    vermogen = 500; 
     actie = "LAAD";
-    stuurData(vermogen, actie);
+  }
+  else if(prijs > 0.40 && accu > 20) {
+    // Als de prijs hoog is en de accu meer dan 20% vol is, ontlaad de accu
+    vermogen = verbruik; 
+    actie = "ONTLAAD";
+  }
+  else{
+    // Geen actie nodig, stuur NIETS
+    vermogen = 0;
+    actie = "NIETS";
   }
 
-  if(prijs > 0.40 && accu > 20) {
-    // Als de prijs hoog is en de accu meer dan 20% vol is, ontlaad de accu
-    vermogen = verbruik; // Stel een ontlaadvermogen in op basis van de accustatus
-    actie = "ONTLAAD";
-    stuurData(vermogen, actie);
-  }
+  stuurData(vermogen, actie);
 //-------------------------------
 
 }
