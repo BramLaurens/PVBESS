@@ -63,8 +63,8 @@ void loop() {
     vermogen = zon - verbruik;
     actie = "LAAD";
   }
-  else if(prijs < 0.20 && accu < 90) {
-    // Laad de accu met 500W als de prijs onder 0.20 €/kWh is
+  else if(prijs < 0.20 && accu < 90 && verbruik > zon) {
+    // Laad de accu met 500W als de prijs onder 0.20 €/kWh is, en er niet genoeg zon is om op te laden
     vermogen = 500; 
     actie = "LAAD";
   }
